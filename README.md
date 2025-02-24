@@ -90,4 +90,16 @@ python app.py
 3. Test the Endpoints:
 Use Python requests (as shown above).
 
+### UML Sequence Diagram:
+```mermaid
+sequenceDiagram
+    participant Client
+    participant FitnessLogService
+    Client->>FitnessLogService: POST /log_workout (user_id, steps, calories, workout_duration)
+    FitnessLogService-->>Client: {"message": "Workout logged successfully!"}
+
+    Client->>FitnessLogService: GET /fitness_insights?user_id=123
+    FitnessLogService-->>Client: {"summary": "...", "suggestion": "..."}
+
+```
 
