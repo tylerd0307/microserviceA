@@ -84,12 +84,14 @@ print(response.json())
 ```bash
 pip install flask requests
 ```
-2. Run the Service:
+2. Run the Service on one terminal:
 ```bash
-python app.py
+python microservice1.py
 ```
-3. Test the Endpoints:
-Use Python requests (as shown above).
+3. Test the Endpoints on another terminal:
+```bash
+python test_microservice.py
+```
 
 ### UML Sequence Diagram:
 ```mermaid
