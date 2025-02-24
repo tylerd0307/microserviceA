@@ -96,17 +96,24 @@ python test_microservice.py
 ### UML Sequence Diagram:
 ```mermaid
 sequenceDiagram
-    participant Client
+    participant TestProgram
     participant API Gateway
     participant FitnessLogService
-    Client->>API Gateway: POST /log_workout (user_id, steps, calories, workout_duration)
-    API Gateway->>FitnessLogService: POST /log_workout (user_id, steps, calories, workout_duration)
-    FitnessLogService-->>API Gateway: {"message": "Workout logged successfully!"}
-    API Gateway-->>Client: {"message": "Workout logged successfully!"}
+    participant Database
 
-    Client->>API Gateway: GET /fitness_insights?user_id=123
+    TestProgram->>API Gateway: POST /log_workout (user_id, steps, calories, workout_duration)
+    API Gateway->>FitnessLogService: POST /log_workout (user_id, steps, calories, workout_duration)
+    FitnessLogService->>Database: Store workout entry
+    Database-->>FitnessLogService: Acknowledge save
+    FitnessLogService-->>API Gateway: {"message": "Workout logged successfully!"}
+    API Gateway-->>TestProgram: {"message": "Workout logged successfully!"}
+
+    TestProgram->>API Gateway: GET /fitness_insights?user_id=123
     API Gateway->>FitnessLogService: GET /fitness_insights?user_id=123
+    FitnessLogService->>Database: Retrieve last 7 days of workouts
+    Database-->>FitnessLogService: Return workout data
     FitnessLogService-->>API Gateway: {"summary": "...", "suggestion": "..."}
-    API Gateway-->>Client: {"summary": "...", "suggestion": "..."}
+    API Gateway-->>TestProgram: {"summary": "...", "suggestion": "..."}
+
 ```
 
