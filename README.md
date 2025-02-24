@@ -97,12 +97,16 @@ python test_microservice.py
 ```mermaid
 sequenceDiagram
     participant Client
+    participant API Gateway
     participant FitnessLogService
-    Client->>FitnessLogService: POST /log_workout (user_id, steps, calories, workout_duration)
-    FitnessLogService-->>Client: {"message": "Workout logged successfully!"}
+    Client->>API Gateway: POST /log_workout (user_id, steps, calories, workout_duration)
+    API Gateway->>FitnessLogService: POST /log_workout (user_id, steps, calories, workout_duration)
+    FitnessLogService-->>API Gateway: {"message": "Workout logged successfully!"}
+    API Gateway-->>Client: {"message": "Workout logged successfully!"}
 
-    Client->>FitnessLogService: GET /fitness_insights?user_id=123
-    FitnessLogService-->>Client: {"summary": "...", "suggestion": "..."}
-
+    Client->>API Gateway: GET /fitness_insights?user_id=123
+    API Gateway->>FitnessLogService: GET /fitness_insights?user_id=123
+    FitnessLogService-->>API Gateway: {"summary": "...", "suggestion": "..."}
+    API Gateway-->>Client: {"summary": "...", "suggestion": "..."}
 ```
 
