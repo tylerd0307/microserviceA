@@ -1,4 +1,5 @@
-#### Overview
+#### Communication Contract
+##### Overview
 
 ##### This microservice allows users to log their workout data and retrieve fitness insights based on a specified date range. It provides two main endpoints:
 
